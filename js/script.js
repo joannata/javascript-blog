@@ -45,7 +45,8 @@ const optArticleSelector = '.post',
   optArticleAuthorSelector = '.post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = '5',
-  optCloudClassPrefix = 'tag-size-';
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.authors';
 
 
 function generateTitleLinks(customSelector = ''){
@@ -260,6 +261,10 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 function generateAuthors(){
+    /* [NEW] create a new variable allAuthors with an empty object */
+    let allAuthors = {};
+    console.log('allAuthors', allAuthors);
+
     /* find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
     console.log('articles', articles);
@@ -279,16 +284,40 @@ function generateAuthors(){
       console.log('authorName', authorName);
   
       /* generate HTML of the link */
-      const authorLinkHTML = '<li><a href="#author-' + authorName + '">' + authorName + '</a></li>';
+      const authorLinkHTML = '<li><a href="#author-' + authorName + '"><span>' + authorName + '</span></a></li>';
       console.log('authorLinkHTML', authorLinkHTML);
 
       /* add generated code to html variable */
       html = html + authorLinkHTML;
-  
+
+      /* [NEW] check if this link is NOT already in allAuthors */
+      if(!allAuthors[authorName]){
+        /* [NEW] add tag to allTags object */
+        allAuthors[authorName] = 1;
+      } else {
+        allAuthors[authorName]++;
+      }
+
       /* insert HTML of all the links into the tags wrapper */
       authorList.innerHTML = html;
-  
+
+      /* [NEW] find list of authors in right column */
+      const authorRightColumnList = document.querySelector(optAuthorsListSelector);
+
+      const authorParams = calculateAuthorParams(allAuthors);
+      console.log('authorParams:', authorParams); 
+
+      /* [NEW] create variable for all links HTML code */
+      let allAuthorsHTML = '';
+
+      /* [NEW] START LOOP: for each authorName in allAuthors: */
+      for(let authorName in allAuthors){
+        const authorHTML = '<li><a class="' + calculateAuthorClass(allAuthors[authorName], authorParams) + '" href="#author-' + authorName + '">' + authorName + ' (' + allAuthors[authorName] +') </a></li>';
+        allAuthorsHTML += authorHTML;
     /* END LOOP: for every article: */
+      }
+
+    authorRightColumnList.innerHTML = allAuthorsHTML;
     }
 }
 
