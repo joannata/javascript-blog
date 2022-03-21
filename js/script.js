@@ -142,9 +142,14 @@ function generateTags(){
       /* insert HTML of all the links into the tags wrapper */
       tagsList.innerHTML = html;
 
-  
     /* END LOOP: for every article: */
     }
+
+    /* [NEW] find list of tags in right column */
+    const tagList = document.querySelector(optTagsListSelector);
+
+    /* [NEW] add html from allTags to tagList */
+    tagList.innerHTML = allTags.join(' ');
 }
   
 generateTags();
