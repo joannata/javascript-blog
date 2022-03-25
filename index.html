@@ -185,7 +185,6 @@
         <aside class="sidebar">
             <h2 class="section-title">Tags</h2>
             <ul class="list tags">
-                
             </ul>
             <h2 class="section-title">Authors</h2>
             <ul class="list authors">
@@ -198,10 +197,10 @@
      <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
    </script>
    <script id="template-tag-link" type="text/x-handlebars-template">
-    <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+    <li><a href="#tag-{{ id }}"><span>{{ title }}</span></a></li>
    </script>
    <script id="template-author-link" type="text/x-handlebars-template">
-    <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+    <li><a href="#author-{{ id }}"><span>{{ title }}</span></a></li>
    </script>
    <script id="template-tag-cloud-link" type="text/x-handlebars-template">
     {{#each tags}}
@@ -210,7 +209,7 @@
    </script>
    <script id="template-author-cloud-link" type="text/x-handlebars-template">
     {{#each authors}}
-    <li><a href="#author-{{author}}" class="{{className}}">{{ authorName }}</a></li>
+    <li><a href="#author-{{author}}">{{ author }} ({{count}})</a></li>
     {{/each}}
    </script>
 
